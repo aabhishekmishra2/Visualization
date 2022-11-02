@@ -1,0 +1,26 @@
+---
+title: "Food Production in India"
+author: "Name: Abhishek Mishra | RollNo: MDS202203"
+date: "02 Nov 2022"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# About Data
+
+### **Context**
+
+This dataset provides a huge amount of information on crop production in India across their states ranging from several years. Given dataset has 7 columns and approx 24000 rows. It has 624 unique values. Based on the Information the ultimate goal would be to visualize the crop production and productivity in India on statewise, seasonwise, yearwise and many other perspective using the different R tools manily ggplot2 and R shiny.
+
+### **Content**
+
+The content is taken from data.world website\
+<https://data.world/thatzprem/agriculture-india>
+
+# 
