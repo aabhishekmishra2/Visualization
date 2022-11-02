@@ -3,9 +3,9 @@ title: "Food Production in India"
 author: "Name: Abhishek Mishra | RollNo: MDS202203"
 date: "02 Nov 2022"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -23,4 +23,53 @@ This dataset provides a huge amount of information on crop production in India a
 The content is taken from data.world website\
 <https://data.world/thatzprem/agriculture-india>
 
-# jbshnfwdkjnesrighnAOGHIZKN
+### Analysis of Crop's Production Across India Yearwise:
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidyverse)
+library(lubridate)
+options(scipen = 10000000) # to get numerical value
+crop_production=read.csv("C:\\Users\\mishr\\OneDrive\\Desktop\\crop_production.csv\\new_data\\crop_production.csv")
+crop_production=crop_production %>% drop_na(Production) # to drop null value
+crop_production= crop_production[crop_production$Crop != "Coconut ",] # because coconut production was creating a big hindrance in our dataset
+season_df1=crop_production %>% group_by(Crop_Year) %>% summarise(
+   tot_area=sum(Area),
+   tot_prod=sum(Production)
+   ,production_per_unit_area= tot_prod/tot_area)
+ggplot(season_df1, aes(Crop_Year, production_per_unit_area))+
+  geom_smooth(se= FALSE)
+ggplot(season_df1, aes(Crop_Year,tot_area))+
+  geom_smooth(se= FALSE)
+```
+
+In this graph we saw that productivity of indian land is exponentially increasing since 1996 excecpt one or two year even though uses of agricultural land is decreasining
+
+### Seasonwise Production in India
+
+```{r}
+season_df2= crop_production[crop_production$Season== "Kharif     " |crop_production$Season=="Rabi       ",] %>% group_by(Crop_Year, Season) %>% summarise(total_production= sum(Production),
+  total_area = sum(Area),production_per_unit_area= total_production/total_area)                         
+season_df2$Crop_Year=as.character(season_df2$Crop_Year)
+gk_g=ggplot(season_df2, aes(Crop_Year,production_per_unit_area, fill= Season ))+
+  geom_bar(stat= "identity", position= "dodge")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+gk_g + labs(x="Year", y= "Productivity")
+ggtitle("Productivity Analysis")
+```
+
+In this bar plot we have seen that productivity in both of the season increased since 1996 but rate of increasing productivity in Kharif season is more than Rabi season. In 2014 productivity of Kharif season was more than 2 times of Productivity of Rabi season
+
+### Crop Production Analysis in Tamilnadu:
+```{r}
+season_df3= crop_production[crop_production$State_Name=="Tamil Nadu" & crop_production$Crop_Year== 2013, ] %>% group_by(Crop) %>% summarise(tot_prd= sum(Production), tot_area= sum(Area), pro= tot_prd/tot_area)
+ggplot(season_df3, aes(x=Crop,y=tot_prd))+
+  geom_col()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))+labs(y= "Total Production")+ggtitle("Crop Production of Tamilnadu in 2013")
+ggplot(season_df3, aes(x="",y=tot_prd, fill=Crop))+
+  geom_col()+ coord_polar(theta='y')
+```
+In these 2 graphs we have seen that in 2013 in Tamilnadu have major production in Sugarcane, Banana, Tapioca and Rice as well
