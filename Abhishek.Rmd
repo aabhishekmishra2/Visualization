@@ -3,9 +3,9 @@ title: "Food Production in India"
 author: "Name: Abhishek Mishra | RollNo: MDS202203"
 date: "02 Nov 2022"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -23,4 +23,4 @@ This dataset provides a huge amount of information on crop production in India a
 The content is taken from data.world website\
 <https://data.world/thatzprem/agriculture-india>
 
-# 
+# jbshnfwdkjnesrighnAOGHIZKN
