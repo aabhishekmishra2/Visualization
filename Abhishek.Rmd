@@ -1,11 +1,12 @@
 ---
 title: "Food Production in India"
-author: "Name: Abhishek Mishra | RollNo: MDS202203"
+author: 'Name: Abhishek Mishra | RollNo: MDS202203'
 date: "02 Nov 2022"
 output:
-  pdf_document: default
+  word_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -33,7 +34,7 @@ library(ggplot2)
 library(tidyverse)
 library(lubridate)
 options(scipen = 10000000) # to get numerical value
-crop_production=read.csv("C:\\Users\\mishr\\OneDrive\\Desktop\\crop_production.csv\\new_data\\crop_production.csv")
+crop_production=read.csv("crop_production.csv")
 crop_production=crop_production %>% drop_na(Production) # to drop null value
 crop_production= crop_production[crop_production$Crop != "Coconut ",] # because coconut production was creating a big hindrance in our dataset
 season_df1=crop_production %>% group_by(Crop_Year) %>% summarise(
